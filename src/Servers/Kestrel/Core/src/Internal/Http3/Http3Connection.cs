@@ -221,14 +221,19 @@ namespace Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http3
 
                 if (stream.HasStarted)
                 {
+                    // The stream has received the data required to start:
+                    // - Request stream = HEADER frame https://quicwg.org/base-drafts/draft-ietf-quic-http.html#section-4
+                    // - Control stream = Stream header https://quicwg.org/base-drafts/draft-ietf-quic-http.html#section-6.2
+                    //
+                    // Don't re-add stream to queue.
                     continue;
                 }
 
                 if (stream.StartExpirationTicks == default)
                 {
-                    stream.StartExpirationTicks = now + _context.ServiceContext.ServerOptions.Limits.RequestHeadersTimeout.Ticks >= 0
-                        ? now + _context.ServiceContext.ServerOptions.Limits.RequestHeadersTimeout.Ticks
-                        : long.MaxValue;
+                    // On expiration overflow, use max value.
+                    var expirationTicks = now + _context.ServiceContext.ServerOptions.Limits.RequestHeadersTimeout.Ticks;
+                    stream.StartExpirationTicks = expirationTicks >= 0 ? expirationTicks : long.MaxValue;
                 }
 
                 if (stream.StartExpirationTicks < now)
@@ -503,7 +508,7 @@ namespace Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http3
                     return OutboundControlStream.SendGoAway(id);
                 }
             }
-            return new ValueTask<FlushResult>();
+            return default;
         }
 
         public bool OnInboundControlStream(Http3ControlStream stream)
