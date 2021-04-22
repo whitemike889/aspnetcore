@@ -150,6 +150,8 @@ namespace Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http3
 
         public async Task ProcessRequestAsync<TContext>(IHttpApplication<TContext> application) where TContext : notnull
         {
+            // Possible optimization: Attempt to parse the stream header without an await.
+            // If it is immediately available then the stream could skip the starting queue.
             _context.StreamLifetimeHandler.OnStreamStarting(this);
 
             try

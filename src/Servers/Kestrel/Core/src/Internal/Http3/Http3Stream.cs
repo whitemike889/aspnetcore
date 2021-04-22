@@ -359,6 +359,8 @@ namespace Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http3
 
         public async Task ProcessRequestAsync<TContext>(IHttpApplication<TContext> application) where TContext : notnull
         {
+            // Possible optimization: Attempt to parse the HEADERS frame (always first frame) without an await.
+            // If the frame is immediately available then the stream could skip the starting queue.
             _context.StreamLifetimeHandler.OnStreamStarting(this);
 
             Exception? error = null;
