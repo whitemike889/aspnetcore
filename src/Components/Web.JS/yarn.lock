@@ -1126,16 +1126,22 @@
     chalk "^4.0.0"
 
 "@microsoft/dotnet-js-interop@link:../../JSInterop/Microsoft.JSInterop.JS/src":
-  version "0.0.0"
-  uid ""
+  version "5.0.0-dev"
 
 "@microsoft/signalr-protocol-msgpack@link:../../SignalR/clients/ts/signalr-protocol-msgpack":
-  version "0.0.0"
-  uid ""
+  version "5.0.0-dev"
+  dependencies:
+    "@microsoft/signalr" "link:../../SignalR/clients/ts/signalr"
+    "@msgpack/msgpack" "^2.4.0"
 
 "@microsoft/signalr@link:../../SignalR/clients/ts/signalr":
-  version "0.0.0"
-  uid ""
+  version "5.0.0-dev"
+  dependencies:
+    abort-controller "^3.0.0"
+    eventsource "^1.0.7"
+    fetch-cookie "^0.11.0"
+    node-fetch "^2.6.1"
+    ws "^7.4.3"
 
 "@msgpack/msgpack@^2.4.0":
   version "2.4.0"
@@ -2226,9 +2232,9 @@ decimal.js@^10.2.0:
   integrity sha512-KaL7+6Fw6i5A2XSnsbhm/6B+NuEA7TZ4vqxnd5tXz9sbKtrN9Srj8ab4vKVdK8YAqZO9P1kg45Y6YLoduPf+kw==
 
 decode-uri-component@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
-  integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
+  integrity sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==
 
 deep-is@^0.1.3, deep-is@~0.1.3:
   version "0.1.3"
